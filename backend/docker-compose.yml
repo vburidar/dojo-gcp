@@ -1,0 +1,39 @@
+version: "3.4"
+
+services:
+  postgresql:
+    container_name: database
+    image: "postgres:13.0"
+    environment:
+      POSTGRES_USER: dojo-gcp-user
+      POSTGRES_PASSWORD: dojo-gcp-password
+      POSTGRES_DB: dojo-gcp-db
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_CONNECTION: postgres
+      DATABASE_HOST: postgresql
+      DATABASE_USERNAME: dojo-gcp-user
+      DATABASE_PASSWORD: dojo-gcp-password
+      DATABASE_DATABASE: dojo-gcp-db
+      DATABASE_PORT: "5432"
+      DATABASE_LOGGING: "true"
+      DATABASE_ENTITIES: dist/**/*.entity.js,dist/src/**/*.entity.js
+      DATABASE_MIGRATIONS: dist/migration/*.js
+      DATABASE_MIGRATIONS_DIR: migration
+      NODE_ENV: development
+    depends_on:
+      - postgresql
+volumes:
+  pgdata:
