@@ -32,6 +32,7 @@ services:
       DATABASE_ENTITIES: dist/**/*.entity.js,dist/src/**/*.entity.js
       DATABASE_MIGRATIONS: dist/migration/*.js
       DATABASE_MIGRATIONS_DIR: migration
+      DATABASE_SYNCHRONIZE: "true"
       NODE_ENV: development
     depends_on:
       - postgresql
