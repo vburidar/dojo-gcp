@@ -1,21 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CloudProvider } from './cloudProvider.entity';
+
+export type CloudProvider = {
+  name: string;
+  grade: number;
+};
 
 @Injectable()
 export class CloudProviderService {
-  constructor(
-    @InjectRepository(CloudProvider)
-    private cloudProviderRepository: Repository<CloudProvider>,
-  ) {}
-
-  async getCloudProviders(): Promise<CloudProvider[]> {
-    return await this.cloudProviderRepository.find();
-  }
-
-  async addCloudProvider(): Promise<string> {
-    await this.cloudProviderRepository.save({ name: 'GCP' });
-    return 'done!';
+  getCloudProviders(): CloudProvider[] {
+    return [
+      {
+        name: 'GCP',
+        grade: 10,
+      },
+      {
+        name: 'AWS',
+        grade: 0,
+      },
+    ];
   }
 }
