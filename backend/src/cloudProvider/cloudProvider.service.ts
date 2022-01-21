@@ -16,6 +16,6 @@ export class CloudProviderService {
 
   async addCloudProvider(): Promise<string> {
     await this.cloudProviderRepository.save({ name: 'GCP' });
-    return 'done';
+    return 'done!';
   }
 }
