@@ -1,0 +1,5 @@
+.home {
+  padding: 30px;
+  /* some trick to have a padding bottom */
+  height: 94%;
+}
