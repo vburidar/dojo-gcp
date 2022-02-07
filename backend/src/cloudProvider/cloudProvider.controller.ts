@@ -1,6 +1,7 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CloudProvider } from './cloudProvider.entity';
 import { CloudProviderService } from './cloudProvider.service';
+import { CloudProviderDto } from './cloudProviderDto.type';
 
 @Controller('cloud-provider')
 export class CloudProviderController {
@@ -12,7 +13,9 @@ export class CloudProviderController {
   }
 
   @Post()
-  async addCloudProvider(): Promise<string> {
-    return await this.cloudProviderService.addCloudProvider();
+  async addCloudProvider(
+    @Body() cloudProviderDto: CloudProviderDto,
+  ): Promise<string> {
+    return await this.cloudProviderService.addCloudProvider(cloudProviderDto);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CloudProvider } from './cloudProvider.entity';
+import { CloudProviderDto } from './cloudProviderDto.type';
 
 @Injectable()
 export class CloudProviderService {
@@ -14,8 +15,8 @@ export class CloudProviderService {
     return await this.cloudProviderRepository.find();
   }
 
-  async addCloudProvider(): Promise<string> {
-    await this.cloudProviderRepository.save({ name: 'GCP' });
+  async addCloudProvider(cloudProviderDto: CloudProviderDto): Promise<string> {
+    await this.cloudProviderRepository.save(cloudProviderDto);
     return 'done!';
   }
 }
